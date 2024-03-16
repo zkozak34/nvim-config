@@ -1,7 +1,10 @@
-require('telescope').setup({ file_ignore_patterns = { "node%_modules/.*" } })
-local builtin = require('telescope.builtin')
+local status, telescope = pcall(require, 'telescope')
+if not status then
+  return
+end
 
-vim.keymap.set('n', '<c-p>', builtin.find_files, {})
-vim.keymap.set('n', '<Space><Space>', builtin.oldfiles, {})
-vim.keymap.set('n', '<Space>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<Space>fh', builtin.help_tags, {})
+telescope.setup({
+  file_ignore_patterns = { "node%_modules/.*" },
+})
+
+telescope.load_extension("fzf")
